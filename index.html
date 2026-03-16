@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fido — The AI Business Partner</title>
+  <meta name="description" content="Fido is the AI operating system for small business. Get funded, incorporated, and growing — without the complexity." />
+  <meta property="og:title" content="Fido — The AI Business Partner" />
+  <meta property="og:description" content="Fido handles the hard parts of running a business so you can focus on the work only you can do." />
+  <meta property="og:type" content="website" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:    #f5f4f1;
+      --ink:   #0f0f0f;
+      --mid:   #4a4a4a;
+      --faint: #909090;
+      --rule:  #e0ddd8;
+      --white: #fafaf8;
+      --dark:  #080808;
+      --cream: #efede8;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────
+       NAV
+    ───────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+      border-bottom: 1px solid rgba(239,237,232,0.06);
+      background: rgba(8,8,8,0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    nav.light {
+      background: rgba(245,244,241,0.94);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 28px; height: 28px;
+      background: var(--cream);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    nav.light .nav-logo-icon { background: var(--ink); }
+
+    .nav-logo-f {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    nav.light .nav-logo-f { color: var(--cream); }
+
+    .nav-logo-name {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(239,237,232,0.75);
+      transition: color 0.3s;
+    }
+
+    nav.light .nav-logo-name { color: var(--ink); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav.light .nav-links a { color: var(--faint); }
+    .nav-links a:hover { color: rgba(239,237,232,0.9); }
+    nav.light .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--cream);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: opacity 0.2s, background 0.3s, color 0.3s;
+    }
+
+    nav.light .nav-cta { color: var(--cream); background: var(--ink); }
+    .nav-cta:hover { opacity: 0.75; }
+
+    /* ─────────────────────────────────────
+       HERO
+    ───────────────────────────────────── */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 48px 100px;
+      overflow: hidden;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.2);
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-headline {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(46px, 8.5vw, 92px);
+      letter-spacing: -2.5px;
+      line-height: 1.04;
+      color: var(--cream);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 300;
+      color: rgba(239,237,232,0.48);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 52px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--cream);
+      text-decoration: none;
+      padding: 15px 34px;
+      border-radius: 8px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.5);
+      background: transparent;
+      text-decoration: none;
+      padding: 14px 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(239,237,232,0.12);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover { color: rgba(239,237,232,0.88); border-color: rgba(239,237,232,0.28); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.2s forwards;
+    }
+
+    .scroll-label {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.18);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, rgba(239,237,232,0.22), rgba(239,237,232,0));
+      animation: scrollPulse 2s ease-in-out 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.22; height: 32px; }
+      50%       { opacity: 0.5;  height: 48px; }
+    }
+
+    /* ─────────────────────────────────────
+       STATS BAR
+    ───────────────────────────────────── */
+    .stats-bar {
+      background: var(--ink);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: center;
+      gap: 72px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-value {
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.28);
+      margin-top: 8px;
+    }
+
+    /* ─────────────────────────────────────
+       PAGE WRAPPER
+    ───────────────────────────────────── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ─────────────────────────────────────
+       SECTION BASE
+    ───────────────────────────────────── */
+    .section {
+      padding: 96px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 32px;
+    }
+
+    .section-headline {
+      font-size: clamp(26px, 4.5vw, 44px);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+
+    .section-body {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--mid);
+      line-height: 1.85;
+      max-width: 600px;
+    }
+
+    .section-body p + p { margin-top: 20px; }
+
+    /* ─────────────────────────────────────
+       PULL QUOTE
+    ───────────────────────────────────── */
+    .pull-quote {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.8vw, 26px);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.55;
+      padding: 48px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin: 48px 0;
+      max-width: 680px;
+      transition: padding-left 0.3s ease;
+    }
+
+    .pull-quote:hover { padding-left: 24px; }
+
+    /* ─────────────────────────────────────
+       PROBLEM
+    ───────────────────────────────────── */
+    .problem-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+    }
+
+    .problem-cell {
+      background: var(--bg);
+      padding: 44px 36px;
+      transition: background 0.2s;
+    }
+
+    .problem-cell:hover { background: var(--white); }
+
+    .problem-num {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 20px;
+    }
+
+    .problem-title {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .problem-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    /* ─────────────────────────────────────
+       PRODUCT
+    ───────────────────────────────────── */
+    .product-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+    }
+
+    .product-cell {
+      background: var(--bg);
+      padding: 48px 44px;
+      transition: background 0.2s;
+    }
+
+    .product-cell:hover { background: var(--white); }
+
+    .product-num {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 20px;
+    }
+
+    .product-title {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.2px;
+    }
+
+    .product-not {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--faint);
+      line-height: 1.65;
+      margin-bottom: 12px;
+      text-decoration: line-through;
+      text-decoration-color: rgba(144,144,144,0.45);
+    }
+
+    .product-is {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+
+    /* ─────────────────────────────────────
+       HOW IT WORKS
+    ───────────────────────────────────── */
+    .steps { margin-top: 56px; }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      border-top: 1px solid var(--rule);
+      padding: 40px 0;
+      transition: background 0.15s;
+    }
+
+    .step-row:last-child { border-bottom: 1px solid var(--rule); }
+    .step-row:hover { background: rgba(15,15,15,0.02); }
+
+    .step-num {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--faint);
+      padding-top: 3px;
+      transition: color 0.2s;
+    }
+
+    .step-row:hover .step-num { color: var(--ink); }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .step-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ─────────────────────────────────────
+       MANIFESTO (dark)
+    ───────────────────────────────────── */
+    .manifesto-section {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    .manifesto-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 100px 48px 112px;
+    }
+
+    .manifesto-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.2);
+      margin-bottom: 56px;
+    }
+
+    .manifesto-swftm {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(60px, 12vw, 116px);
+      letter-spacing: -3px;
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .manifesto-expand {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.2);
+      margin-bottom: 76px;
+    }
+
+    .manifesto-line {
+      font-size: clamp(16px, 2.5vw, 23px);
+      font-weight: 300;
+      color: rgba(239,237,232,0.22);
+      line-height: 1.65;
+      padding: 40px 0;
+      border-top: 1px solid rgba(239,237,232,0.06);
+      transition: color 0.35s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      will-change: opacity, transform;
+    }
+
+    .manifesto-line:last-child { border-bottom: 1px solid rgba(239,237,232,0.06); }
+    .manifesto-line:hover { color: rgba(239,237,232,0.88); }
+    .manifesto-line.visible { animation: lineIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    .manifesto-line strong { font-weight: 500; color: var(--cream); }
+    .manifesto-line em {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      color: var(--cream);
+    }
+
+    /* ─────────────────────────────────────
+       PARTNERS
+    ───────────────────────────────────── */
+    .partners-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+    }
+
+    .partner-cell {
+      background: var(--bg);
+      padding: 48px 36px;
+      transition: background 0.2s;
+    }
+
+    .partner-cell:hover { background: var(--white); }
+
+    .partner-icon {
+      width: 34px; height: 34px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .partner-title {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .partner-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .partner-cta {
+      display: inline-block;
+      margin-top: 48px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--ink);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .partner-cta:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    /* ─────────────────────────────────────
+       VISION
+    ───────────────────────────────────── */
+    .timeline { margin-top: 56px; }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-top: 1px solid var(--rule);
+      padding: 40px 0;
+      transition: background 0.15s;
+    }
+
+    .timeline-row:last-child { border-bottom: 1px solid var(--rule); }
+    .timeline-row:hover { background: rgba(15,15,15,0.02); }
+
+    .timeline-year {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--faint);
+      padding-top: 3px;
+      transition: color 0.2s;
+    }
+
+    .timeline-row:hover .timeline-year { color: var(--ink); }
+
+    .timeline-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .timeline-text strong { font-weight: 400; color: var(--ink); }
+
+    /* ─────────────────────────────────────
+       INVESTOR STRIP (dark)
+    ───────────────────────────────────── */
+    .investor-strip {
+      background: var(--ink);
+      padding: 88px 48px;
+    }
+
+    .investor-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .investor-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.28);
+      margin-bottom: 18px;
+    }
+
+    .investor-headline {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.25;
+      letter-spacing: -0.3px;
+      max-width: 500px;
+      margin-bottom: 18px;
+    }
+
+    .investor-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(239,237,232,0.42);
+      line-height: 1.8;
+      max-width: 460px;
+    }
+
+    .investor-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+
+    .btn-light {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--cream);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+      text-align: center;
+    }
+
+    .btn-light:hover { opacity: 0.8; }
+
+    .btn-outline-light {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.48);
+      background: transparent;
+      text-decoration: none;
+      padding: 13px 28px;
+      border-radius: 8px;
+      border: 1px solid rgba(239,237,232,0.12);
+      transition: color 0.2s, border-color 0.2s;
+      text-align: center;
+    }
+
+    .btn-outline-light:hover {
+      color: rgba(239,237,232,0.88);
+      border-color: rgba(239,237,232,0.28);
+    }
+
+    /* ─────────────────────────────────────
+       WAITLIST
+    ───────────────────────────────────── */
+    .waitlist-section {
+      background: var(--dark);
+      padding: 112px 48px;
+      text-align: center;
+    }
+
+    .waitlist-inner {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .waitlist-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.2);
+      margin-bottom: 28px;
+    }
+
+    .waitlist-headline {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(30px, 4.5vw, 48px);
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .waitlist-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(239,237,232,0.38);
+      line-height: 1.75;
+      margin-bottom: 44px;
+    }
+
+    .waitlist-form {
+      display: flex;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .waitlist-input {
+      flex: 1;
+      background: rgba(239,237,232,0.06);
+      border: 1px solid rgba(239,237,232,0.1);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: 15px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--cream);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .waitlist-input::placeholder { color: rgba(239,237,232,0.22); }
+
+    .waitlist-input:focus {
+      border-color: rgba(239,237,232,0.25);
+      background: rgba(239,237,232,0.09);
+    }
+
+    .waitlist-btn {
+      background: var(--cream);
+      color: var(--dark);
+      border: none;
+      border-radius: 0 8px 8px 0;
+      padding: 15px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .waitlist-btn:hover { opacity: 0.8; }
+
+    .waitlist-note {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(239,237,232,0.2);
+      margin-top: 18px;
+      letter-spacing: 0.03em;
+      transition: color 0.3s;
+    }
+
+    /* ─────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(239,237,232,0.06);
+      padding: 52px 48px;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo-icon {
+      width: 26px; height: 26px;
+      background: rgba(239,237,232,0.08);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-f {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--cream);
+    }
+
+    .footer-name {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(239,237,232,0.35);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.28);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: rgba(239,237,232,0.7); }
+
+    .footer-legal {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,237,232,0.14);
+    }
+
+    /* ─────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* scroll-reveal utility */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────── */
+    @media (max-width: 720px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero-section { padding: 100px 24px 72px; }
+      .stats-bar { gap: 28px; padding: 28px 24px; }
+      .page { padding: 0 24px; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .product-grid  { grid-template-columns: 1fr; }
+      .partners-grid { grid-template-columns: 1fr; }
+      .manifesto-inner { padding: 72px 24px 88px; }
+      .investor-strip { padding: 72px 24px; }
+      .investor-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
+      .investor-actions { flex-direction: row; flex-wrap: wrap; }
+      .waitlist-section { padding: 88px 24px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-input { border-right: 1px solid rgba(239,237,232,0.1); border-radius: 8px; }
+      .waitlist-btn { border-radius: 8px; margin-top: 8px; padding: 14px; }
+      footer { padding: 40px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .footer-links { flex-wrap: wrap; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon"><span class="nav-logo-f">f</span></div>
+    <span class="nav-logo-name">Fido</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#product">Product</a></li>
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#partners">Partners</a></li>
+    <li><a href="#vision">Vision</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Get Early Access</a>
+</nav>
+
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero-section" id="hero">
+  <canvas id="canvas"></canvas>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Fido Financial · AI Business Partner</div>
+    <h1 class="hero-headline">
+      The loyal AI<br>business partner.
+    </h1>
+    <p class="hero-sub">
+      Fido handles the hard parts of running a business — funding, compliance, operations, growth — so you can focus on the work only you can do.
+    </p>
+    <div class="hero-ctas">
+      <a href="#waitlist" class="btn-primary">Get Early Access</a>
+      <a href="#manifesto" class="btn-ghost">Read the Manifesto</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-label">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     STATS BAR
+══════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value">33M</div>
+    <div class="stat-label">Small businesses in the US</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">$500B</div>
+    <div class="stat-label">Serviceable market</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">62M</div>
+    <div class="stat-label">Americans employed by SMBs</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">46%</div>
+    <div class="stat-label">Of private-sector GDP</div>
+  </div>
+</div>
+
+
+<div class="page">
+
+  <!-- ══════════════════════════════════
+       PROBLEM
+  ══════════════════════════════════ -->
+  <section class="section reveal" id="problem">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-headline">running a small business is still impossibly hard</h2>
+    <p class="section-body">
+      Tens of millions of people want to work for themselves. Only a fraction succeed — held back not by ambition, but by the complexity of starting, funding, and growing a business without a team behind them.
+    </p>
+
+    <div class="problem-grid">
+      <div class="problem-cell">
+        <div class="problem-num">01</div>
+        <div class="problem-title">Getting Funded</div>
+        <div class="problem-text">Predatory rates, opaque processes, and application nightmares keep small businesses from the capital they need to grow.</div>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-num">02</div>
+        <div class="problem-title">Staying Compliant</div>
+        <div class="problem-text">LLC filings, annual reports, registered agent requirements — a constant compliance burden most owners aren't equipped to navigate alone.</div>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-num">03</div>
+        <div class="problem-title">Running the Back Office</div>
+        <div class="problem-text">Bookkeeping, invoicing, payroll, taxes — the work owners hate most, drowning out the work that actually grows the business.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      "We are not building software that helps small businesses manage their problems. We are building an agent that eliminates them."
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       PRODUCT
+  ══════════════════════════════════ -->
+  <section class="section reveal" id="product">
+    <div class="section-label">Product</div>
+    <h2 class="section-headline">an AI that does the work, not just helps you do it</h2>
+    <p class="section-body">
+      Fido is an orchestration layer of specialized AI agents — each owning a mission-critical function, each executing autonomously on your behalf. Tell Fido what you need. Fido does it.
+    </p>
+
+    <div class="product-grid">
+      <div class="product-cell">
+        <div class="product-num">01 — Business Funding</div>
+        <div class="product-title">We get you funded.</div>
+        <div class="product-not">A platform that manages the funding process</div>
+        <div class="product-is">Fido pulls your data, builds the application package, matches the right lender, and submits on your behalf. You get funded. We earn at close.</div>
+      </div>
+      <div class="product-cell">
+        <div class="product-num">02 — Incorporation & Compliance</div>
+        <div class="product-title">We keep you legal, forever.</div>
+        <div class="product-not">Software to manage LLC formation and compliance workflows</div>
+        <div class="product-is">An agent that gets your business incorporated and maintains compliance in perpetuity — filings, renewals, registered agent, all handled without you lifting a finger.</div>
+      </div>
+      <div class="product-cell">
+        <div class="product-num">03 — Business Intelligence</div>
+        <div class="product-title">We watch the numbers for you.</div>
+        <div class="product-not">A dashboard with charts and KPI tracking</div>
+        <div class="product-is">A real-time health monitor that surfaces what matters, flags what's broken, and tells you exactly what to do next — before problems grow.</div>
+      </div>
+      <div class="product-cell">
+        <div class="product-num">04 — Growth & Revenue</div>
+        <div class="product-title">We find your next customer.</div>
+        <div class="product-not">Marketing automation tools and campaign builders</div>
+        <div class="product-is">An agent that identifies opportunities, drafts campaigns, builds your presence, and gets your next customer — entirely on your behalf.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       HOW IT WORKS
+  ══════════════════════════════════ -->
+  <section class="section reveal" id="how">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-headline">three steps to a fully operating business</h2>
+
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title">Tell Fido about your business</div>
+          <div class="step-text">Connect your accounts, describe your goals, and give Fido the context it needs. Takes about ten minutes. No forms, no lawyers, no accountants required upfront.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title">Fido gets to work</div>
+          <div class="step-text">Specialized agents handle your funding applications, compliance filings, financial monitoring, and growth efforts — running continuously while you focus on your business.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title">You focus on the work only you can do</div>
+          <div class="step-text">Fido reports on what it's done, what it's working on, and what it needs from you. The tedious work disappears. The important decisions stay with you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════
+     MANIFESTO (dark)
+══════════════════════════════════ -->
+<section class="manifesto-section" id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-eyebrow">The Fido Manifesto</div>
+    <div class="manifesto-swftm">SWFTM.</div>
+    <div class="manifesto-expand">Stop Working For The Man</div>
+
+    <div class="manifesto-line">
+      Tens of millions of people want to work for themselves.<br>
+      <strong>Only a fraction succeed.</strong>
+    </div>
+    <div class="manifesto-line">
+      Of the <strong>33 million small businesses</strong> in the United States, too many fail —
+      and even more people <em>never get started</em> — held back by the complexity of forming an entity,
+      finding capital, acquiring customers, and recruiting talent.
+      Not for lack of ambition. For lack of support.
+    </div>
+    <div class="manifesto-line">
+      Artificial intelligence holds tremendous promise. It also prompts a real fear:
+      that small businesses could be rendered irrelevant — replaced by AI agents that perform
+      <strong>better, faster, and more cheaply than human labor.</strong>
+    </div>
+    <div class="manifesto-line">
+      <em>We reject that future.</em>
+    </div>
+    <div class="manifesto-line">
+      Fido Financial believes that anyone with the desire and work ethic to build something of their own
+      deserves the opportunity to succeed. That AI should be deployed <strong>not to replace human talent —
+      but to amplify it.</strong> That technology, wielded rightly, leads to prosperity and abundance
+      for the people who take the risk to build.
+    </div>
+    <div class="manifesto-line">
+      By deploying a specialized set of AI capabilities tailored to the exact pain points small business
+      owners face, Fido becomes a <strong>limitless workforce</strong> — handling every tedious function
+      the owner hates, so they can focus entirely on the work only they can do.
+    </div>
+    <div class="manifesto-line">
+      With Fido, aspiring business owners can <em>SWFTM</em> — knowing they have instant access to
+      the world's top business minds to <strong>start, fund, and grow</strong> their business.
+      A loyal companion. A relentless operator. A partner that never sleeps.
+    </div>
+  </div>
+</section>
+
+
+<div class="page">
+
+  <!-- ══════════════════════════════════
+       PARTNERS
+  ══════════════════════════════════ -->
+  <section class="section reveal" id="partners">
+    <div class="section-label">Partners</div>
+    <h2 class="section-headline">power your customers with Fido</h2>
+    <p class="section-body">
+      Fido is built to integrate into the ecosystems that already serve small business owners. If your business touches the SMB market, Fido makes your offering dramatically more valuable.
+    </p>
+
+    <div class="partners-grid">
+      <div class="partner-cell">
+        <div class="partner-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8h12M8 2v12" stroke="#909090" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="partner-title">Lenders & ISOs</div>
+        <div class="partner-text">Integrate Fido's funding agent into your origination flow. We prepare the borrower, complete the application, and deliver a cleaner book — so you close more, faster, with less friction.</div>
+      </div>
+      <div class="partner-cell">
+        <div class="partner-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="4" width="12" height="8" rx="1.5" stroke="#909090" stroke-width="1.2"/>
+            <path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#909090" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="partner-title">Accountants & Advisors</div>
+        <div class="partner-text">Offer your clients a Fido-powered back office. White-label the agents, keep the relationship, and deliver better outcomes without scaling your headcount.</div>
+      </div>
+      <div class="partner-cell">
+        <div class="partner-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="5.5" stroke="#909090" stroke-width="1.2"/>
+            <path d="M8 5v3.5l2.5 1.5" stroke="#909090" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="partner-title">Franchisors & Associations</div>
+        <div class="partner-text">Deploy Fido across your franchise network or member base. Every location gets an AI-powered operator that maintains standards, handles compliance, and drives growth.</div>
+      </div>
+    </div>
+
+    <a href="mailto:partners@fidofinancial.com" class="partner-cta">Become a Partner</a>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       VISION
+  ══════════════════════════════════ -->
+  <section class="section reveal" id="vision">
+    <div class="section-label">Vision</div>
+    <h2 class="section-headline">the AI business partner in a box</h2>
+    <p class="section-body">
+      Every great business eventually has a trusted advisor — an accountant who knows the business inside out, a banker who picks up the phone, a lawyer who prevents problems before they happen. For most of history, that relationship has been available only to companies large enough to pay for it.
+    </p>
+
+    <div class="pull-quote">
+      "We named it Fido because that's what it is. Always there. Always loyal. Never asks for credit. Just gets it done."
+    </div>
+
+    <p class="section-body">Fido makes that relationship available to everyone who starts a business.</p>
+
+    <div class="timeline">
+      <div class="timeline-row">
+        <div class="timeline-year">Year 1</div>
+        <div class="timeline-text"><strong>Get businesses funded.</strong> The highest-stakes moment in any small business's life — fast, fair, and frictionless for the first time.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-year">Year 3</div>
+        <div class="timeline-text"><strong>Run the back office.</strong> Compliance, payroll, invoicing, reporting — a complete AI-powered operations layer that replaces a five-person admin team.</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-year">Year 5</div>
+        <div class="timeline-text"><strong>The AI operating system of the American small business.</strong> The single trusted entity that knows more about how a business runs than the owner themselves — and works every day to make it better.</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════
+     INVESTOR STRIP
+══════════════════════════════════ -->
+<div class="investor-strip">
+  <div class="investor-inner">
+    <div>
+      <div class="investor-label">For Investors</div>
+      <h2 class="investor-headline">We are building the agent era's defining SMB platform.</h2>
+      <p class="investor-body">
+        Fido is raising a Seed round to scale the funding agent, launch the business card, and prove the outcomes-based model in market. 33 million businesses. No real incumbent. Now.
+      </p>
+    </div>
+    <div class="investor-actions">
+      <a href="mailto:bb@fidofinancial.com" class="btn-light">Request Pitch Deck</a>
+      <a href="mailto:max@fidofinancial.com" class="btn-outline-light">Contact the Team</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     WAITLIST
+══════════════════════════════════ -->
+<section class="waitlist-section" id="waitlist">
+  <div class="waitlist-inner">
+    <div class="waitlist-eyebrow">Early Access</div>
+    <h2 class="waitlist-headline">Get Fido working for your business.</h2>
+    <p class="waitlist-sub">
+      We're onboarding a limited number of small businesses in our first cohort. Join the list — we'll reach out when we're ready for you.
+    </p>
+    <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+      <input class="waitlist-input" type="email" placeholder="your@email.com" required />
+      <button class="waitlist-btn" type="submit">Join Waitlist</button>
+    </form>
+    <div class="waitlist-note" id="waitlist-note">No spam. Just an update when we're ready.</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-icon"><span class="footer-f">f</span></div>
+      <span class="footer-name">Fido Financial</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#product">Product</a></li>
+      <li><a href="#manifesto">Manifesto</a></li>
+      <li><a href="#partners">Partners</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="mailto:bb@fidofinancial.com">Contact</a></li>
+    </ul>
+    <div class="footer-legal">© 2026 SBA Fintech Inc. · All rights reserved</div>
+  </div>
+</footer>
+
+
+<script>
+/* ══════════════════════════════════════════════
+   CANVAS — Particle Constellation Flow Field
+══════════════════════════════════════════════ */
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+let W, H, particles, mouse = { x: -9999, y: -9999 };
+
+function resize() {
+  const hero = canvas.parentElement;
+  W = canvas.width  = hero.offsetWidth;
+  H = canvas.height = hero.offsetHeight;
+}
+resize();
+window.addEventListener('resize', () => { resize(); initParticles(); });
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+function flowAngle(x, y, t) {
+  const nx = x / W, ny = y / H;
+  return (
+    Math.sin(nx * 4.2 + t * 0.6) * Math.cos(ny * 3.1 + t * 0.4) +
+    Math.sin(nx * 2.1 - ny * 2.8 + t * 0.9) * 0.6 +
+    Math.cos(nx * 6.3 + ny * 1.7 + t * 0.3) * 0.3
+  ) * Math.PI * 1.8;
+}
+
+class Particle {
+  constructor() { this.init(); }
+  init() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = 0; this.vy = 0;
+    this.maxLife = 180 + Math.random() * 260;
+    this.age   = Math.random() * this.maxLife;
+    this.size  = 0.8 + Math.random() * 1.2;
+    this.speed = 0.28 + Math.random() * 0.42;
+  }
+  update(t) {
+    const angle = flowAngle(this.x, this.y, t);
+    const dx = this.x - mouse.x, dy = this.y - mouse.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 140) {
+      const force = (140 - dist) / 140 * 0.6;
+      this.vx += (dx / dist) * force;
+      this.vy += (dy / dist) * force;
+    }
+    this.vx += Math.cos(angle) * this.speed;
+    this.vy += Math.sin(angle) * this.speed;
+    this.vx *= 0.93; this.vy *= 0.93;
+    this.x  += this.vx; this.y  += this.vy;
+    this.age++;
+    if (this.age > this.maxLife || this.x < -20 || this.x > W+20 || this.y < -20 || this.y > H+20) {
+      this.init(); this.age = 0;
+    }
+  }
+  get alpha() {
+    const life = this.age / this.maxLife;
+    const fade = life < 0.12 ? life / 0.12 : life > 0.82 ? (1 - life) / 0.18 : 1;
+    return fade * 0.55;
+  }
+}
+
+function initParticles() {
+  const count = Math.min(240, Math.floor((W * H) / 5500));
+  particles = Array.from({ length: count }, () => new Particle());
+}
+initParticles();
+
+let t = 0;
+function draw() {
+  requestAnimationFrame(draw);
+  ctx.clearRect(0, 0, W, H);
+  t += 0.004;
+
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d  = Math.sqrt(dx * dx + dy * dy);
+      if (d < 110) {
+        const a = (1 - d / 110) * 0.09 * Math.min(particles[i].alpha, particles[j].alpha) * 2;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(239,237,232,${a})`;
+        ctx.lineWidth = 0.4;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  particles.forEach(p => {
+    p.update(t);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(239,237,232,${p.alpha})`;
+    ctx.fill();
+  });
+
+  const vignette = ctx.createRadialGradient(W/2, H/2, H*0.25, W/2, H/2, H*0.9);
+  vignette.addColorStop(0, 'rgba(8,8,8,0)');
+  vignette.addColorStop(1, 'rgba(8,8,8,0.65)');
+  ctx.fillStyle = vignette;
+  ctx.fillRect(0, 0, W, H);
+}
+draw();
+
+
+/* ══════════════════════════════════════════════
+   NAV — switch to light mode when past hero
+══════════════════════════════════════════════ */
+const nav         = document.getElementById('nav');
+const heroSection = document.getElementById('hero');
+
+const navObserver = new IntersectionObserver(entries => {
+  nav.classList.toggle('light', !entries[0].isIntersecting);
+}, { threshold: 0.05 });
+
+navObserver.observe(heroSection);
+
+
+/* ══════════════════════════════════════════════
+   SCROLL REVEAL — generic .reveal elements
+══════════════════════════════════════════════ */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+revealEls.forEach(el => revealObs.observe(el));
+
+
+/* ══════════════════════════════════════════════
+   MANIFESTO LINES — staggered scroll reveal
+══════════════════════════════════════════════ */
+const mLines = document.querySelectorAll('.manifesto-line');
+const mObs   = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el  = entry.target;
+      const idx = [...mLines].indexOf(el);
+      el.style.animationDelay = `${idx * 0.07}s`;
+      el.classList.add('visible');
+      mObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.15 });
+
+mLines.forEach(l => mObs.observe(l));
+
+
+/* ══════════════════════════════════════════════
+   WAITLIST FORM
+══════════════════════════════════════════════ */
+function handleWaitlist(e) {
+  e.preventDefault();
+  const note = document.getElementById('waitlist-note');
+  note.textContent = "You're on the list. We'll be in touch soon.";
+  note.style.color = 'rgba(239,237,232,0.5)';
+  e.target.reset();
+}
+</script>
+
+</body>
+</html>

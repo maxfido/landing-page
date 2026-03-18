@@ -106,6 +106,15 @@
       transition: color 0.3s;
     }
 
+    .nav-logo-wordmark {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      transition: color 0.3s;
+    }
+
     .nav-links {
       display: flex;
       gap: 32px;
@@ -973,22 +982,53 @@
        RESPONSIVE
     ───────────────────────────────────── */
     @media (max-width: 720px) {
-      nav { padding: 0 24px; }
+      nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .hero-section { padding: 100px 24px 72px; }
-      .stats-bar { gap: 28px; padding: 28px 24px; }
-      .page { padding: 0 24px; }
+
+      /* Hero: remove the 100vh min-height, just use comfortable padding */
+      .hero-section {
+        min-height: unset;
+        padding: 88px 20px 40px;
+        justify-content: flex-start;
+      }
+      .hero-eyebrow { margin-bottom: 24px; }
+      .hero-headline { margin-bottom: 20px; letter-spacing: -1.5px; }
+      .hero-sub { margin-bottom: 28px; }
+
+      .stats-bar { gap: 20px; padding: 24px 20px; }
+      .stat-item { min-width: calc(50% - 10px); }
+
+      .page { padding: 0 20px; }
+      .section { padding: 48px 0; }
+
       .problem-grid { grid-template-columns: 1fr; }
+      .problem-cell { padding: 28px 20px; }
+
       .product-grid  { grid-template-columns: 1fr; }
+      .product-cell { padding: 28px 20px; }
+
       .partners-grid { grid-template-columns: 1fr; }
-      .manifesto-inner { padding: 72px 24px 88px; }
-      .investor-strip { padding: 72px 24px; }
-      .investor-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
+      .partner-cell { padding: 28px 20px; }
+
+      .manifesto-inner { padding: 40px 20px 48px; }
+      .manifesto-eyebrow { margin-bottom: 28px; }
+      .manifesto-swftm { margin-bottom: 8px; }
+      .manifesto-expand { margin-bottom: 40px; }
+      .manifesto-line { padding: 24px 0; }
+
+      .investor-strip { padding: 40px 20px; }
+      .investor-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
       .investor-actions { flex-direction: row; flex-wrap: wrap; }
-      .cta-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px 88px; }
-      footer { padding: 40px 24px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
-      .footer-links { flex-wrap: wrap; gap: 20px; }
+
+      .cta-inner { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 48px; }
+
+      footer { padding: 32px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+
+      .pull-quote { padding: 28px 0; margin: 28px 0; }
+      .step-row { padding: 24px 0; }
+      .timeline-row { padding: 24px 0; }
     }
   </style>
 </head>
@@ -999,8 +1039,7 @@
 ══════════════════════════════════ -->
 <nav>
   <a href="#" class="nav-logo">
-    <div class="nav-logo-icon"><span class="nav-logo-f">f</span></div>
-    <span class="nav-logo-name">Fido</span>
+    <span class="nav-logo-wordmark">Fido Financial</span>
   </a>
   <ul class="nav-links">
     <li><a href="#product">Product</a></li>
@@ -1032,7 +1071,7 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Fido Financial · AI Business Partner</div>
     <h1 class="hero-headline">
-      The AI business<br>partner.
+      Your AI business<br>partner.
     </h1>
     <p class="hero-sub">
       Fido handles the hard parts of running a business so you can spend more time doing what you love, and less time on everything else.
